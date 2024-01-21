@@ -17,4 +17,13 @@ fn connection_handler(mut stream: TcpStream){
     stream.read(&mut buffer).unwrap();
 
     println!("Request: {}", String::from_utf8_lossy(&buffer[..]));
+
+    // HTTP-Version Status-Code Reason-Phrase CRLF
+    // headers CRLF
+    // message-body
+    // ex: HTTP/1.1 200 OK\r\n\r\n
+
+    let response = "HTTP/1.1 200 OK\r\n\r\n";
+    stream.write(response.as_bytes()).unwrap();
+    stream.flush().unwrap();
 }
